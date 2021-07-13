@@ -35,16 +35,29 @@ export class MyCounter extends LitElement {
             <!-- Los eventos se definen con una @ -->
             <button @click="${this.increment}">+1</button>
             <button @click="${this.decrement}">-1</button>
+            <feedback-element id="feedback"></feedback-element>
         </div>
         `;
     }
 
+    get feedback(){
+        return this.shadowRoot.getElementById("feedback")
+    }
+
     increment(){
         this.counter ++
+        if(this.counter == 5){
+            //con this.shadowroot accedo a la raíz de este template
+            this.feedback.open("You reached 5 clicks! ")
+        }
     }
 
     decrement(){
         this.counter --
+        if(this.counter == 0){
+            //con this.shadowroot accedo a la raíz de este template
+            this.feedback.open("You have reset the clicks")
+        }
     }
 }
 customElements.define('my-counter', MyCounter);
